@@ -1,0 +1,61 @@
+﻿@using NTSDCES.Models
+@model NTSDCES.Models.ForumPost
+
+@{
+    ViewBag.Title = "Gamezone";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+    NTSDCESEntities Data = new NTSDCESEntities();
+    List<ForumPost> ListPostAnnouncement = Data.ForumPosts.ToList();
+    List<Account> NameAccount = Data.Accounts.ToList();
+}
+
+<div id="main">
+    <div id="topic">
+        <img src="~/images/sharingan_icon.png">
+        <p>Gamezone</p>
+        <img src="~/images/sharingan_icon.png" style="float: right;">
+    </div>
+    <div id="main_content">
+        @if (User.IsInRole("Developer"))
+        {
+            <a href="@Url.Action("NewPost", "Announcement", new { area = "" })">
+                <input type="submit" value="New Post" style="margin-top: 4px; margin-left: 4px" />
+            </a>
+        }
+        @foreach (var item in ListPostAnnouncement.Where(x => x.CatePost == 12).OrderByDescending(a => a.PostID))
+        {
+            <div id="row">
+                @foreach (var item1 in NameAccount.Where(n => n.AccountID == item.AccountID))
+                {
+                    <div id="col1">
+                        <img src="~/images/template_avt.png">
+                        <p>
+                            Name: <a href="#">@item1.NameAcc</a><br>
+                            Role: @item1.Roles
+                        </p>
+                        @if (User.IsInRole("Developer") && item1.NameAcc == @User.Identity.Name || User.IsInRole("Developer") && @User.Identity.Name == "TheLMoD")
+                        {
+                            <a href="@Url.Action("EditPost", "Announcement", new { id = item.PostID })">
+                                <input type="submit" value="Edit Post" style="width: 110px; margin-left: 4px" />
+                            </a>
+                            <a href="@Url.Action("DeletePost", "Announcement", new { id = item.PostID })">
+                                <input type="submit" value="Delete Post" style=" width: 110px; margin-left: 4px" />
+                            </a>
+                        }
+                    </div>
+                }
+                <div id="col2">
+                    <p>
+                        @item.Content<br>
+                        @if (item.Images != null)
+                        {
+                            <img src="~/images/@item.Images" style="margin-bottom: 8px">
+                        }
+                    </p>
+                    <button style="background-color: white; width: 80px; height: 50px; float: left;"><img src="~/images/like_icon.png"><p style="line-height: 22px">Like</p></button>
+                    <button style="background-color: white; width: 80px; height: 50px; margin-left: 8px; float: left;"><img src="~/images/dislike_icon.png"><p style="line-height: 22px">Dislike</p></button>
+                </div>
+            </div>
+        }
+    </div>
+</div>

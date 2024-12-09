@@ -1,0 +1,564 @@
+p {
+    font-family: 'Courier New', Courier, monospace;
+}
+html {
+    cursor: url(images/cursor.png), auto;
+}
+
+@media only screen and (min-width: 1080px) {
+    body {
+        background-image: url(images/background.png);
+        background-size: 100%;
+        background-repeat: no-repeat;
+        background-color: black;
+        color: white;
+        cursor: url(images/cursor.png), auto;
+    }
+
+    body a,
+    input,
+    label {
+        cursor: url(images/cursor.png), auto;
+        font-family: Courier;
+    }
+
+    #outer {
+        width: 1080px;
+        margin-top: 0px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    #menu {
+        height: 20px;
+        margin-top: 0px;
+        text-align: right;
+    }
+
+    .sm {
+        display: none;
+    }
+
+    #menu a {
+        padding-left: 10px;
+        padding-right: 10px;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+    }
+
+    #menu a:hover {
+        color: red;
+        transition-duration: 0.5;
+    }
+
+    #menu a:active {
+        color: rgb(60, 123, 60);
+        transition-duration: 0.5;
+    }
+
+    #header {
+        width: 1080px;
+        height: 346px;
+        margin-top: 0px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #main {
+        width: 1080px;
+        margin-top: 4px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    #bar {
+        width: 175px;
+        height: 40px;
+        margin-top: 0px;
+        float: left;
+    }
+
+    #bar1 {
+        width: 175px;
+        height: 40px;
+        margin-top: 0px;
+        text-align: center;
+        float: left;
+        background-image: url(images/scroll.png);
+    }
+
+    #bar1 p {
+        width: 175px;
+        height: 24px;
+        margin-top: 0px;
+        float: left;
+        line-height: 40px;
+    }
+
+    #bar1_content {
+        width: 175px;
+        margin-top: 0px;
+        text-align: center;
+        float: left;
+        background-image: url(images/paper.png);
+        background-repeat: repeat;
+    }
+
+    #bar1_content1 {
+        width: 175px;
+        height: 145px;
+        margin-top: 0px;
+        overflow-y: scroll;
+        float: left;
+    }
+
+    #bar1_content1::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    #bar1_content img {
+        width: 40px;
+        height: 45px;
+        margin-top: 0px;
+    }
+
+    #bar1_content a {
+        color: white;
+        text-decoration: none;
+    }
+
+    #bar1_content a:hover {
+        color: black;
+        transition-duration: 0.5;
+    }
+
+    #bar1_content a:active {
+        color: rgb(60, 123, 60);
+        transition-duration: 0.5;
+    }
+
+    #bar1_content a:hover img {
+        margin-top: 0px;
+        background-color: black;
+    }
+
+    #content {
+        width: 720px;
+        height: 415px;
+        margin-left: 4px;
+        background-color: black;
+        float: left;
+    }
+
+    #topic {
+        width: 715px;
+        height: 46px;
+        margin-top: 0px;
+        text-align: center;
+        border-style: groove;
+        border-color: grey;
+        float: left;
+    }
+
+    #topic p {
+        width: 631px;
+        height: 42px;
+        float: left;
+    }
+
+    #topic img {
+        width: 42px;
+        height: 42px;
+        margin-top: 2px;
+        float: left;
+    }
+
+    #main_content {
+        width: 715px;
+        height: 358px;
+        margin-top: 2px;
+        border-style: groove;
+        border-color: grey;
+        overflow-y: scroll;
+        float: left;
+    }
+
+    #main_content::-webkit-scrollbar {
+        display: none;
+    }
+
+    #main_content p {
+        font-family: Courier;
+        margin-top: 5px;
+    }
+
+    #main_content #row {
+        width: 715px;
+        margin-top: 2px;
+        border-style: groove;
+        border-color: grey;
+        float: left;
+    }
+
+    #main_content #row #col1 {
+        width: 122px;
+        height: 200px;
+        font-size: 12px;
+        margin-top: 3px;
+        padding-left: 3px;
+        float: left;
+    }
+
+    #main_content #row #col1 img {
+        width: 120px;
+        height: 120px;
+        float: left;
+    }
+
+    #main_content #row #col1 a {
+        font-size: 12px;
+        color: grey;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    #main_content #row #col1 a:hover {
+        font-size: 12px;
+        color: red;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    #main_content #row #col1 input {
+        width: 111px;
+        height: 20px;
+        border-style: solid;
+    }
+
+    #main_content #row #col2 {
+        width: 580px;
+        margin-left: 0px;
+        text-align: center;
+        float: left;
+    }
+
+    #main_content #row #col2 p {
+        width: 580px;
+        margin-left: 0px;
+        border-style: solid;
+        border-width: 2px;
+        border-color: grey;
+    }
+
+    #bar2 {
+        width: 175px;
+        height: 243px;
+        margin-top: 2px;
+        float: left;
+    }
+
+    #bar2 img {
+        margin-left: 3px;
+        border-style: groove;
+        border-color: grey;
+    }
+
+    #footer {
+        width: 1080px;
+        margin-top: 0px;
+        text-align: center;
+        font-family: Courier;
+        font-size: 12px;
+        float: left;
+    }
+}
+
+@media only screen and (max-width: 1080px) {
+    body {
+        background-size: 100%;
+        background-repeat: no-repeat;
+        background-color: black;
+        color: white;
+        cursor: url(images/cursor.png), auto;
+    }
+
+    body a,
+    input, button,
+    label {
+        cursor: url(images/cursor.png), auto;
+        font-family: Courier;
+    }
+
+    #outer {
+        width: 100%;
+        margin-top: 0px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    #menu {
+        width: 100px;
+        height: 120px;
+        margin-top: 0px;
+        margin-bottom: 20px;
+        margin-left: 0px;
+    }
+
+    .lg {
+        display: none;
+    }
+
+    #menu a {
+        padding-left: 10px;
+        padding-right: 10px;
+        color: white;
+        text-decoration: none;
+    }
+
+    #menu a:hover {
+        color: red;
+        transition-duration: 0.5;
+    }
+
+    #menu a:active {
+        color: rgb(60, 123, 60);
+        transition-duration: 0.5;
+    }
+
+    #menu button {
+        padding-left: 10px;
+        padding-right: 10px;
+        color: black;
+        text-decoration: none;
+    }
+
+    #menu button:hover {
+        background-color: grey;
+        transition-duration: 0.5;
+    }
+
+    #header {
+        margin-top: 5px;
+        margin-left: auto;
+        margin-right: auto;
+
+    }
+
+    #header img {
+        width: 100%;
+        height: 100%;
+    }
+
+    #main {
+        width: 100%;
+        margin-top: 0px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    #bar {
+        width: 175px;
+        height: 40px;
+        margin-top: 0px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #bar1 {
+        width: 100%;
+        height: 40px;
+        text-align: center;
+        background-image: url(images/scroll.png);
+        background-repeat: no-repeat;
+    }
+
+    #bar1 p {
+        width: 100%;
+        height: 24px;
+        margin-top: 0px;
+        line-height: 40px;
+    }
+
+    #bar1_content {
+        width: 175px;
+        margin-top: 0px;
+        text-align: center;
+        background-image: url(images/paper.png);
+        background-repeat: repeat;
+    }
+
+    #bar1_content1 {
+        width: 100%;
+        height: 145px;
+        margin-top: 0px;
+        overflow-y: scroll;
+    }
+
+    #bar1_content1::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    #bar1_content img {
+        width: 40px;
+        height: 45px;
+        margin-top: 0px;
+    }
+
+    #bar1_content a {
+        color: white;
+        text-decoration: none;
+    }
+
+    #bar1_content a:hover {
+        color: black;
+        transition-duration: 0.5;
+    }
+
+    #bar1_content a:active {
+        color: rgb(60, 123, 60);
+        transition-duration: 0.5;
+    }
+
+    #bar1_content a:hover img {
+        margin-top: 0px;
+        background-color: black;
+    }
+
+    #content {
+        width: 100%;
+        height: 415px;
+        margin-top: 385px;
+        margin-bottom: 10px;
+        float: left;
+    }
+
+    #topic {
+        width: 100%;
+        height: 46px;
+        margin-top: 0px;
+        text-align: center;
+        border-style: groove;
+        border-color: grey;
+        float: left;
+    }
+
+    #topic p {
+        width: 85%;
+        height: 42px;
+        margin-left: 10px;
+        float: left;
+    }
+
+    #topic img {
+        margin-top: 2px;
+        float: left;
+    }
+
+    #main_content {
+        width: 100%;
+        height: 358px;
+        margin-top: 2px;
+        border-style: groove;
+        border-color: grey;
+        overflow-y: scroll;
+        float: left;
+    }
+
+    #main_content::-webkit-scrollbar {
+        display: none;
+    }
+
+    #main_content p {
+        font-family: Courier;
+        margin-top: 5px;
+    }
+
+    #main_content #row {
+        width: 100%;
+        margin-top: 2px;
+        border-style: groove;
+        border-color: grey;
+        float: left;
+    }
+
+    #main_content #row #col1 {
+        width: 122px;
+        height: 200px;
+        font-size: 12px;
+        margin-top: 3px;
+        padding-left: 3px;
+        float: left;
+    }
+
+    #main_content #row #col1 img {
+        width: 120px;
+        height: 120px;
+        float: left;
+    }
+
+    #main_content #row #col1 a {
+        font-size: 12px;
+        color: grey;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    #main_content #row #col1 a:hover {
+        font-size: 12px;
+        color: red;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    #main_content #row #col1 input {
+        width: 111px;
+        height: 20px;
+        border-style: solid;
+    }
+
+    #main_content #row #col2 {
+        width: 580px;
+        margin-left: 0px;
+        text-align: center;
+        float: left;
+    }
+
+    #main_content #row #col2 p {
+        width: 580px;
+        margin-left: 0px;
+        border-style: solid;
+        border-width: 2px;
+        border-color: grey;
+    }
+
+    #bar2 {
+        width: 100%;
+        height: 243px;
+    }
+
+    #bar2 img {
+        border-style: groove;
+        border-color: grey;
+    }
+
+    #footer {
+        width: 100%;
+        margin-top: 410px;
+        text-align: center;
+        font-family: Courier;
+        font-size: 12px;
+        float: left;
+    }
+}
+
+@media only screen and (max-width: 725px) {
+    #menu {
+        margin-bottom: 20px;
+    }
+    #topic p {
+        width: 70%;
+        height: 42px;
+        float: left;
+    }
+}

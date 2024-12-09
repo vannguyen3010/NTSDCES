@@ -1,0 +1,37 @@
+﻿@using NTSDCES.Models
+@{ 
+    NTSDCESEntities Data = new NTSDCESEntities();
+    List<Character> ListCharacter = Data.Characters.ToList();
+}
+
+<div id="bar">
+    <div id="bar1">
+        <p>CHARACTERS</p>
+    </div>
+    <div id="bar1_content">
+        <div id="bar1_content1">
+            @foreach (var item in ListCharacter)
+            {
+                <a href="@Url.Action("Character", "Home", new {id = item.CharacterID})"><img src="~/images/s/@item.sImage"></a>
+            }
+        </div>
+    </div>
+    <div id="bar1">
+        <p>CHANNELS</p>
+    </div>
+    <div id="bar1_content">
+        @Html.ActionLink("Announcement", "Index", "Announcement", new { id = 10}, new { @class = "nav-link" })<br>
+        @Html.ActionLink("Progress", "Progress", "Announcement", new { id = 11 }, new { @class = "nav-link" })<br>
+        @Html.ActionLink("Gamezone", "Gamezone", "Announcement", new { id = 12 }, new { @class = "nav-link" })<br>
+        @Html.ActionLink("Forum", "Forum", "Forum", new { area = "" }, new { @class = "nav-link" })
+    </div>
+    <div id="bar1">
+        <p>SERVERS</p>
+    </div>
+    <div id="bar1_content">
+        <a href="https://discord.gg/M5rsHHWX">NTSDZ</a><br>
+        <a href="https://discord.gg/ZTFZ37Ah">LF2 EMPIRE</a><br>
+        <a href="https://discord.gg/H2JA7XF5">NTSD ONLINE</a><br>
+        <a href="https://discord.gg/wgYcNgGw">LF2 LOBBY</a><br>
+    </div>
+</div>

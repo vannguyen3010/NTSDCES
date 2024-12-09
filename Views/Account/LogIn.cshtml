@@ -1,0 +1,37 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In</title>
+    <link rel="stylesheet" href="~/LogIn.css">
+</head>
+<body>
+    <div id="outer">
+        <div id="header">
+            <h1 style="font-family: 'Courier New'">Log In</h1>
+        </div>
+        @using (Html.BeginForm("LogIn", "Account", FormMethod.Post))
+        {
+            <form>
+                <div id="content">
+                    <label for="Username">Username:</label><br><br>
+                    <input type="text" name="Username"><br><br>
+                    <label for="Passwords">Passwords:</label><br><br>
+                    <input type="password" name="Passwords"><br>
+                </div>
+                <div id="footer">
+                    <input type="submit" value="Log In" formaction="/Account/LogIn" /><br>
+                    @Html.ActionLink("Can not log in?", "RecoverAccount", "Account", new { area = "" }, new { @class = "nav-link" })<br>
+                    @Html.ActionLink("Create account", "Register", "Account", new { area = "" }, new { @class = "nav-link" })
+                </div>
+            </form>
+        }
+    </div>
+</body>
+</html>

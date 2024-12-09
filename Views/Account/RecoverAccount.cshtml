@@ -1,0 +1,34 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recover Account</title>
+    <link rel="stylesheet" href="~/LogIn.css">
+</head>
+<body>
+    <div id="outer">
+        <div id="header">
+            <h1 style="font-family: 'Courier New'">Recover Account</h1>
+        </div>
+        <div id="content">
+            <form>
+                <label for="username">Username:</label><br>
+                <input type="text" name="username"><br>
+                <label for="email">Email:</label><br>
+                <input type="text" name="email"><br>
+            </form>
+        </div>
+        <div id="footer">
+            <input type="submit" value="Recover" onclick="alert('Check your email!')"><br>
+            @Html.ActionLink("Already have account?", "LogIn", "Account", new { area = "" }, new { @class = "nav-link" })<br>
+            @Html.ActionLink("Create account", "Register", "Account", new { area = "" }, new { @class = "nav-link" })
+        </div>
+    </div>
+</body>
+</html>

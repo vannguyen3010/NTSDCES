@@ -1,0 +1,38 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="~/LogIn.css">
+</head>
+<body>
+    <div id="outer">
+        <div id="header">
+            <h1 style="font-family: 'Courier New'">Register</h1>
+        </div>
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+        {
+            <form>
+                <div id="content">
+                    <label for="NameAcc">Username:</label><br><br>
+                    <input type="text" name="NameAcc"><br><br>
+                    <label for="Passwords">Password:</label><br><br>
+                    <input type="password" name="Passwords"><br><br>
+                    <label for="Avatar">Avatar:</label><br><br>
+                    <input type="file" name="Avatar" style="margin-left: 100px"><br>
+                </div>
+                <div id="footer">
+                    <input type="submit" value="Register" formaction="/Account/Create"><br>
+                    @Html.ActionLink("Already have account?", "LogIn", "Account", new { area = "" }, new { @class = "nav-link" })
+                </div>
+            </form>
+        }
+    </div>
+</body>
+</html>

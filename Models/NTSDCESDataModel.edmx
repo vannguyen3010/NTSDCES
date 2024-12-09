@@ -1,0 +1,533 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Models.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="AccountID" />
+          </Key>
+          <Property Name="AccountID" Type="int" Nullable="false" />
+          <Property Name="NameAcc" Type="nvarchar" MaxLength="255" />
+          <Property Name="Roles" Type="nvarchar" MaxLength="255" />
+          <Property Name="Avatar" Type="nvarchar" MaxLength="255" />
+          <Property Name="CateAcc" Type="int" Nullable="false" />
+          <Property Name="Passwords" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Characters">
+          <Key>
+            <PropertyRef Name="CharacterID" />
+          </Key>
+          <Property Name="CharacterID" Type="int" Nullable="false" />
+          <Property Name="NameChar" Type="nvarchar" MaxLength="255" />
+          <Property Name="sImage" Type="nvarchar" MaxLength="255" />
+          <Property Name="fImage" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'NTSDCES.dbo.Forum' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Forum">
+          <Key>
+            <PropertyRef Name="PostID" />
+            <PropertyRef Name="AccountID" />
+          </Key>
+          <Property Name="PostID" Type="int" Nullable="false" />
+          <Property Name="NumReps" Type="int" />
+          <Property Name="NumViews" Type="int" />
+          <Property Name="PostDate" Type="datetime" />
+          <Property Name="AccountID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ForumPost">
+          <Key>
+            <PropertyRef Name="PostID" />
+          </Key>
+          <Property Name="PostID" Type="int" Nullable="false" />
+          <Property Name="NamePost" Type="nvarchar" MaxLength="255" />
+          <Property Name="Content" Type="text" />
+          <Property Name="Images" Type="nvarchar" MaxLength="255" />
+          <Property Name="CatePost" Type="int" Nullable="false" />
+          <Property Name="AccountID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ForumReps">
+          <Key>
+            <PropertyRef Name="PostRepID" />
+          </Key>
+          <Property Name="PostRepID" Type="int" Nullable="false" />
+          <Property Name="Content" Type="text" />
+          <Property Name="Images" Type="nvarchar" MaxLength="255" />
+          <Property Name="PostID" Type="int" Nullable="false" />
+          <Property Name="AccountID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Images">
+          <Key>
+            <PropertyRef Name="ImageID" />
+          </Key>
+          <Property Name="ImageID" Type="int" Nullable="false" />
+          <Property Name="Content" Type="text" />
+          <Property Name="Images" Type="nvarchar" MaxLength="255" />
+          <Property Name="CharacterID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SupportForm">
+          <Key>
+            <PropertyRef Name="FormID" />
+          </Key>
+          <Property Name="FormID" Type="int" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Discribe" Type="text" />
+          <Property Name="Images" Type="nvarchar" MaxLength="255" />
+          <Property Name="AccountID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Forum__AccountID__412EB0B6">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="Forum" Type="Self.Forum" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="Forum">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Forum__PostID__3D5E1FD2">
+          <End Role="ForumPost" Type="Self.ForumPost" Multiplicity="1" />
+          <End Role="Forum" Type="Self.Forum" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ForumPost">
+              <PropertyRef Name="PostID" />
+            </Principal>
+            <Dependent Role="Forum">
+              <PropertyRef Name="PostID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ForumPost__Accou__3B75D760">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="ForumPost" Type="Self.ForumPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="ForumPost">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ForumReps__Accou__44FF419A">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="ForumReps" Type="Self.ForumReps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="ForumReps">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ForumReps__PostI__440B1D61">
+          <End Role="ForumPost" Type="Self.ForumPost" Multiplicity="1" />
+          <End Role="ForumReps" Type="Self.ForumReps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ForumPost">
+              <PropertyRef Name="PostID" />
+            </Principal>
+            <Dependent Role="ForumReps">
+              <PropertyRef Name="PostID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Images__Characte__49C3F6B7">
+          <End Role="Characters" Type="Self.Characters" Multiplicity="1" />
+          <End Role="Images" Type="Self.Images" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Characters">
+              <PropertyRef Name="CharacterID" />
+            </Principal>
+            <Dependent Role="Images">
+              <PropertyRef Name="CharacterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SupportFo__Accou__4CA06362">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="SupportForm" Type="Self.SupportForm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="SupportForm">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelsStoreContainer">
+          <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Characters" EntityType="Self.Characters" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ForumPost" EntityType="Self.ForumPost" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ForumReps" EntityType="Self.ForumReps" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Images" EntityType="Self.Images" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SupportForm" EntityType="Self.SupportForm" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Forum" EntityType="Self.Forum" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Forum].[PostID] AS [PostID], 
+    [Forum].[NumReps] AS [NumReps], 
+    [Forum].[NumViews] AS [NumViews], 
+    [Forum].[PostDate] AS [PostDate], 
+    [Forum].[AccountID] AS [AccountID]
+    FROM [dbo].[Forum] AS [Forum]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__Forum__AccountID__412EB0B6" Association="Self.FK__Forum__AccountID__412EB0B6">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Forum" EntitySet="Forum" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Forum__PostID__3D5E1FD2" Association="Self.FK__Forum__PostID__3D5E1FD2">
+            <End Role="ForumPost" EntitySet="ForumPost" />
+            <End Role="Forum" EntitySet="Forum" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ForumPost__Accou__3B75D760" Association="Self.FK__ForumPost__Accou__3B75D760">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="ForumPost" EntitySet="ForumPost" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ForumReps__Accou__44FF419A" Association="Self.FK__ForumReps__Accou__44FF419A">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="ForumReps" EntitySet="ForumReps" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ForumReps__PostI__440B1D61" Association="Self.FK__ForumReps__PostI__440B1D61">
+            <End Role="ForumPost" EntitySet="ForumPost" />
+            <End Role="ForumReps" EntitySet="ForumReps" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Images__Characte__49C3F6B7" Association="Self.FK__Images__Characte__49C3F6B7">
+            <End Role="Characters" EntitySet="Characters" />
+            <End Role="Images" EntitySet="Images" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SupportFo__Accou__4CA06362" Association="Self.FK__SupportFo__Accou__4CA06362">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="SupportForm" EntitySet="SupportForm" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Models" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="AccountID" />
+          </Key>
+          <Property Name="AccountID" Type="Int32" Nullable="false" />
+          <Property Name="NameAcc" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Roles" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Avatar" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CateAcc" Type="Int32" Nullable="false" />
+          <Property Name="Passwords" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Fora" Relationship="Self.FK__Forum__AccountID__412EB0B6" FromRole="Account" ToRole="Forum" />
+          <NavigationProperty Name="ForumPosts" Relationship="Self.FK__ForumPost__Accou__3B75D760" FromRole="Account" ToRole="ForumPost" />
+          <NavigationProperty Name="ForumReps" Relationship="Self.FK__ForumReps__Accou__44FF419A" FromRole="Account" ToRole="ForumReps" />
+          <NavigationProperty Name="SupportForms" Relationship="Self.FK__SupportFo__Accou__4CA06362" FromRole="Account" ToRole="SupportForm" />
+        </EntityType>
+        <EntityType Name="Character">
+          <Key>
+            <PropertyRef Name="CharacterID" />
+          </Key>
+          <Property Name="CharacterID" Type="Int32" Nullable="false" />
+          <Property Name="NameChar" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="sImage" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="fImage" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Images" Relationship="Self.FK__Images__Characte__49C3F6B7" FromRole="Characters" ToRole="Images" />
+        </EntityType>
+        <EntityType Name="ForumPost">
+          <Key>
+            <PropertyRef Name="PostID" />
+          </Key>
+          <Property Name="PostID" Type="Int32" Nullable="false" />
+          <Property Name="NamePost" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Images" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CatePost" Type="Int32" Nullable="false" />
+          <Property Name="AccountID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="Self.FK__ForumPost__Accou__3B75D760" FromRole="ForumPost" ToRole="Account" />
+          <NavigationProperty Name="Fora" Relationship="Self.FK__Forum__PostID__3D5E1FD2" FromRole="ForumPost" ToRole="Forum" />
+          <NavigationProperty Name="ForumReps" Relationship="Self.FK__ForumReps__PostI__440B1D61" FromRole="ForumPost" ToRole="ForumReps" />
+        </EntityType>
+        <EntityType Name="ForumRep">
+          <Key>
+            <PropertyRef Name="PostRepID" />
+          </Key>
+          <Property Name="PostRepID" Type="Int32" Nullable="false" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Images" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PostID" Type="Int32" Nullable="false" />
+          <Property Name="AccountID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="Self.FK__ForumReps__Accou__44FF419A" FromRole="ForumReps" ToRole="Account" />
+          <NavigationProperty Name="ForumPost" Relationship="Self.FK__ForumReps__PostI__440B1D61" FromRole="ForumReps" ToRole="ForumPost" />
+        </EntityType>
+        <EntityType Name="Image">
+          <Key>
+            <PropertyRef Name="ImageID" />
+          </Key>
+          <Property Name="ImageID" Type="Int32" Nullable="false" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Images" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CharacterID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Character" Relationship="Self.FK__Images__Characte__49C3F6B7" FromRole="Images" ToRole="Characters" />
+        </EntityType>
+        <EntityType Name="SupportForm">
+          <Key>
+            <PropertyRef Name="FormID" />
+          </Key>
+          <Property Name="FormID" Type="Int32" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Discribe" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Images" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="AccountID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="Self.FK__SupportFo__Accou__4CA06362" FromRole="SupportForm" ToRole="Account" />
+        </EntityType>
+        <EntityType Name="Forum">
+          <Key>
+            <PropertyRef Name="PostID" />
+            <PropertyRef Name="AccountID" />
+          </Key>
+          <Property Name="PostID" Type="Int32" Nullable="false" />
+          <Property Name="NumReps" Type="Int32" />
+          <Property Name="NumViews" Type="Int32" />
+          <Property Name="PostDate" Type="DateTime" Precision="3" />
+          <Property Name="AccountID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="Self.FK__Forum__AccountID__412EB0B6" FromRole="Forum" ToRole="Account" />
+          <NavigationProperty Name="ForumPost" Relationship="Self.FK__Forum__PostID__3D5E1FD2" FromRole="Forum" ToRole="ForumPost" />
+        </EntityType>
+        <Association Name="FK__Forum__AccountID__412EB0B6">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="Forum" Type="Self.Forum" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="Forum">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ForumPost__Accou__3B75D760">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="ForumPost" Type="Self.ForumPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="ForumPost">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ForumReps__Accou__44FF419A">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="ForumReps" Type="Self.ForumRep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="ForumReps">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SupportFo__Accou__4CA06362">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="SupportForm" Type="Self.SupportForm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="SupportForm">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Images__Characte__49C3F6B7">
+          <End Role="Characters" Type="Self.Character" Multiplicity="1" />
+          <End Role="Images" Type="Self.Image" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Characters">
+              <PropertyRef Name="CharacterID" />
+            </Principal>
+            <Dependent Role="Images">
+              <PropertyRef Name="CharacterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Forum__PostID__3D5E1FD2">
+          <End Role="ForumPost" Type="Self.ForumPost" Multiplicity="1" />
+          <End Role="Forum" Type="Self.Forum" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ForumPost">
+              <PropertyRef Name="PostID" />
+            </Principal>
+            <Dependent Role="Forum">
+              <PropertyRef Name="PostID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ForumReps__PostI__440B1D61">
+          <End Role="ForumPost" Type="Self.ForumPost" Multiplicity="1" />
+          <End Role="ForumReps" Type="Self.ForumRep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ForumPost">
+              <PropertyRef Name="PostID" />
+            </Principal>
+            <Dependent Role="ForumReps">
+              <PropertyRef Name="PostID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="NTSDCESEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Accounts" EntityType="Self.Account" />
+          <EntitySet Name="Characters" EntityType="Self.Character" />
+          <EntitySet Name="ForumPosts" EntityType="Self.ForumPost" />
+          <EntitySet Name="ForumReps" EntityType="Self.ForumRep" />
+          <EntitySet Name="Images" EntityType="Self.Image" />
+          <EntitySet Name="SupportForms" EntityType="Self.SupportForm" />
+          <EntitySet Name="Fora" EntityType="Self.Forum" />
+          <AssociationSet Name="FK__Forum__AccountID__412EB0B6" Association="Self.FK__Forum__AccountID__412EB0B6">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="Forum" EntitySet="Fora" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ForumPost__Accou__3B75D760" Association="Self.FK__ForumPost__Accou__3B75D760">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="ForumPost" EntitySet="ForumPosts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ForumReps__Accou__44FF419A" Association="Self.FK__ForumReps__Accou__44FF419A">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="ForumReps" EntitySet="ForumReps" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SupportFo__Accou__4CA06362" Association="Self.FK__SupportFo__Accou__4CA06362">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="SupportForm" EntitySet="SupportForms" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Images__Characte__49C3F6B7" Association="Self.FK__Images__Characte__49C3F6B7">
+            <End Role="Characters" EntitySet="Characters" />
+            <End Role="Images" EntitySet="Images" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Forum__PostID__3D5E1FD2" Association="Self.FK__Forum__PostID__3D5E1FD2">
+            <End Role="ForumPost" EntitySet="ForumPosts" />
+            <End Role="Forum" EntitySet="Fora" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ForumReps__PostI__440B1D61" Association="Self.FK__ForumReps__PostI__440B1D61">
+            <End Role="ForumPost" EntitySet="ForumPosts" />
+            <End Role="ForumReps" EntitySet="ForumReps" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelsStoreContainer" CdmEntityContainer="NTSDCESEntities">
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="Models.Account">
+              <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+                <ScalarProperty Name="NameAcc" ColumnName="NameAcc" />
+                <ScalarProperty Name="Roles" ColumnName="Roles" />
+                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
+                <ScalarProperty Name="CateAcc" ColumnName="CateAcc" />
+                <ScalarProperty Name="Passwords" ColumnName="Passwords" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Characters">
+            <EntityTypeMapping TypeName="Models.Character">
+              <MappingFragment StoreEntitySet="Characters">
+                <ScalarProperty Name="CharacterID" ColumnName="CharacterID" />
+                <ScalarProperty Name="NameChar" ColumnName="NameChar" />
+                <ScalarProperty Name="sImage" ColumnName="sImage" />
+                <ScalarProperty Name="fImage" ColumnName="fImage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ForumPosts">
+            <EntityTypeMapping TypeName="Models.ForumPost">
+              <MappingFragment StoreEntitySet="ForumPost">
+                <ScalarProperty Name="PostID" ColumnName="PostID" />
+                <ScalarProperty Name="NamePost" ColumnName="NamePost" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Images" ColumnName="Images" />
+                <ScalarProperty Name="CatePost" ColumnName="CatePost" />
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ForumReps">
+            <EntityTypeMapping TypeName="Models.ForumRep">
+              <MappingFragment StoreEntitySet="ForumReps">
+                <ScalarProperty Name="PostRepID" ColumnName="PostRepID" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Images" ColumnName="Images" />
+                <ScalarProperty Name="PostID" ColumnName="PostID" />
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Images">
+            <EntityTypeMapping TypeName="Models.Image">
+              <MappingFragment StoreEntitySet="Images">
+                <ScalarProperty Name="ImageID" ColumnName="ImageID" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Images" ColumnName="Images" />
+                <ScalarProperty Name="CharacterID" ColumnName="CharacterID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SupportForms">
+            <EntityTypeMapping TypeName="Models.SupportForm">
+              <MappingFragment StoreEntitySet="SupportForm">
+                <ScalarProperty Name="FormID" ColumnName="FormID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Discribe" ColumnName="Discribe" />
+                <ScalarProperty Name="Images" ColumnName="Images" />
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Fora">
+            <EntityTypeMapping TypeName="Models.Forum">
+              <MappingFragment StoreEntitySet="Forum">
+                <ScalarProperty Name="PostID" ColumnName="PostID" />
+                <ScalarProperty Name="NumReps" ColumnName="NumReps" />
+                <ScalarProperty Name="NumViews" ColumnName="NumViews" />
+                <ScalarProperty Name="PostDate" ColumnName="PostDate" />
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

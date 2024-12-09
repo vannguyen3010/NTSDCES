@@ -1,0 +1,43 @@
+﻿@using NTSDCES.Models
+@model NTSDCES.Models.ForumPost
+
+@{
+    ViewBag.Title = "EditPost";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+    NTSDCESEntities Data = new NTSDCESEntities();
+    List<ForumPost> ListPostAnnouncement = Data.ForumPosts.ToList();
+}
+
+<div id="main">
+    <div id="topic">
+        <img src="~/images/sharingan_icon.png">
+        <p>Post</p>
+        <img src="~/images/sharingan_icon.png" style="float: right;">
+    </div>
+    <div id="main_content">
+        @using (Html.BeginForm("EditPost", "Announcement", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+        {
+            <form method="post">
+                @foreach (var item in ListPostAnnouncement.Where(x => x.PostID == Model.PostID))
+                {
+                    <fieldset>
+                        <legend align="center">Edit Post</legend>
+                        <label for="PostID">Post ID:</label><br>
+                        <input type="text" name="PostID" id="input" value="@item.PostID" readonly><br>
+                        @{
+                            string NameAccount = Data.Accounts.Where(a => a.AccountID == item.AccountID).Select(s => s.NameAcc).FirstOrDefault();
+                        }
+                        <label for="Username">Username:</label><br>
+                        <input type="text" name="Username" id="input" value="@NameAccount" readonly><br>
+                        <label for="NamePost">Name Post:</label><br>
+                        <input type="text" name="NamePost" id="input" value="@item.NamePost" readonly><br>
+                        <label for="Content">Content:</label><br>
+                        <textarea name="Content" style="width: 600px; height: 300px">@item.Content</textarea><br>
+                        <input type="file" name="imgfile"><br>
+                        <input type="submit" value="Edit" onclick="alert('Edited Successfully')" formaction="/Announcement/Edit" />
+                    </fieldset>
+                }
+            </form>
+        }
+    </div>
+</div>

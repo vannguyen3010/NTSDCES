@@ -1,0 +1,63 @@
+﻿@using NTSDCES.Models
+@model NTSDCES.Models.ForumPost
+
+@{
+    ViewBag.Title = "NewPost";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+    NTSDCESEntities Data = new NTSDCESEntities();
+    List<ForumPost> ListPostAnnouncement = Data.ForumPosts.ToList();
+    List<Account> NameAccount = Data.Accounts.ToList();
+}
+
+<div id="main">
+    <div id="topic">
+        <img src="~/images/sharingan_icon.png">
+        <p>Post</p>
+        <img src="~/images/sharingan_icon.png" style="float: right;">
+    </div>
+    <div id="main_content">
+        @using (Html.BeginForm("NewPost", "Announcement", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                <form method="post">
+                    <fieldset>
+                        <legend align="center">New Post</legend>
+                        <label for="Username">Username:</label><br>
+                        <input type="text" name="Username" id="input" value="@User.Identity.Name" readonly><br>
+                        <label for="NamePost">Name Post:</label><br>
+                        <select name="NamePost">
+                            <option value="Announcement">Announcement</option>
+                            <option value="Progress">Progress</option>
+                            <option value="Gamezone">Gamezone</option>
+                        </select><br>
+                        <label for="Content">Content:</label><br>
+                        <textarea name="Content" style="width: 600px; height: 300px"></textarea><br>
+                        <input type="file" name="imgfile"><br>
+                        <input type="submit" value="Post" onclick="alert('Posted Successfully')" formaction="/Announcement/New" />
+                    </fieldset>
+                </form>
+            }
+            else
+            {
+                <form method="post">
+                    <fieldset>
+                        <legend align="center">New Post</legend>
+                        <label for="Username">Username:</label><br>
+                        <input type="text" name="Username" id="input"><br>
+                        <label for="NamePost">Name Post:</label><br>
+                        <select name="NamePost">
+                            <option value="Announcement">Announcement</option>
+                            <option value="Progress">Progress</option>
+                            <option value="Gamezone">Gamezone</option>
+                        </select><br>
+                        <label for="Content">Content:</label><br>
+                        <textarea name="Content" style="width: 600px; height: 300px"></textarea><br>
+                        <input type="file" name="imgfile"><br>
+                        <input type="submit" value="Post" onclick="alert('Posted Successfully')" formaction="/Announcement/New" />
+                    </fieldset>
+                </form>
+            }
+        }
+    </div>
+</div>

@@ -1,0 +1,82 @@
+﻿
+@{
+    Layout = null;
+}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/Forum_post.css">
+    <title>template</title>
+    <style>
+        html {
+            cursor: url(images/cursor.png), auto;
+        }
+
+        .active {
+            display: block;
+        }
+
+        .btn {
+            width: 72px;
+            height: 40px;
+        }
+
+            .btn:hover {
+                background-color: grey;
+                border-style: none;
+            }
+    </style>
+</head>
+
+<body>
+    <div class="DropDown">
+        <button class="btn sm" onclick="DropDown(this)">---</button>
+        <div id="menu" class="lg">
+            @if (User.Identity.IsAuthenticated)
+            {
+                @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })
+                @Html.ActionLink("Info", "Info", "Home", new { area = "" }, new { @class = "nav-link" })
+                <a href="https://discord.gg/H5XyhS9">Discord</a>
+                @Html.ActionLink("Support", "Index", "Support", new { area = "" }, new { @class = "nav-link" })
+                <a href="https://www.mediafire.com/file/yq5ijcw02lx8elt/NTSDCES1.7z/file">Download</a>
+                <a>Welcome - @User.Identity.Name</a>
+                @Html.ActionLink("Log Out", "LogOut", "Account", new { area = "" }, new { @class = "nav-link" })
+            }
+            else
+            {
+                @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })
+                @Html.ActionLink("Info", "Info", "Home", new { area = "" }, new { @class = "nav-link" })
+                <a href="https://discord.gg/H5XyhS9">Discord</a>
+                @Html.ActionLink("Support", "Index", "Support", new { area = "" }, new { @class = "nav-link" })
+                <a href="https://www.mediafire.com/file/yq5ijcw02lx8elt/NTSDCES1.7z/file">Download</a>
+                @Html.ActionLink("Log In", "LogIn", "Account", new { area = "" }, new { @class = "nav-link" })
+                @Html.ActionLink("Register", "Register", "Account", new { area = "" }, new { @class = "nav-link" })
+            }
+        </div>
+    </div>
+    <div id="outer">
+        <div id="header">
+            <img src="~/images/title.png">
+        </div>
+        @RenderBody();
+        <div id="footer">
+            <p>
+                Copyright &copy Naruto: The Setting Dawn Community Edition Storm. All rights reserved.
+            </p>
+        </div>
+    </div>
+    <script>
+        function DropDown(element) {
+            element.nextElementSibling.classList.add("active")
+        }
+        window.onclick = function (event) {
+            let active = document.querySelector(".active")
+            if (active && !event.target.matches(".btn")) {
+                active.classList.remove("active")
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+﻿@using NTSDCES.Models
+@model NTSDCES.Models.Character
+
+@{
+    ViewBag.Title = "Characters";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+
+    NTSDCESEntities Data = new NTSDCESEntities();
+    List<Image> ListCharacter = Data.Images.ToList();
+}
+
+<div id="content">
+    <div id="topic">
+        <img src="~/images/sharingan_icon.png">
+        <p>@Model.NameChar</p>
+        <img src="~/images/sharingan_icon.png" style="float: right;">
+    </div>
+    <div id="main_content">
+        <div id="row">
+            <div id="col1">
+                <img src="~/images/f/@Model.fImage">
+                <p>
+                    Name: @Model.NameChar
+                </p>
+            </div>
+            <div id="col2">
+                @foreach (var item1 in ListCharacter.Where(i => i.CharacterID == @Model.CharacterID))
+                {
+                    <p>
+                        @item1.Content
+                        <img src="~/images/characters/@item1.Images">
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+</div>

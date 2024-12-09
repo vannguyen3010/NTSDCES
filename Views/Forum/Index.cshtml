@@ -1,0 +1,261 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/Forum.css">
+    <title>Forum</title>
+    <style>
+        .active {
+            display: block;
+        }
+
+        .btn {
+            width: 72px;
+            height: 40px;
+            background-image: url(~/images/menu_button.png);
+            background-color: rgba(0, 0, 0, 0);
+            border-style: none;
+        }
+
+            .btn:hover {
+                background-image: url(~/images/menu_button1.png);
+                background-color: rgba(0, 0, 0, 0);
+                border-style: none;
+            }
+
+            .btn:active {
+                background-image: url(~/images/menu_button1.png);
+                background-color: rgba(0, 0, 0, 0);
+                border-style: none;
+            }
+    </style>
+</head>
+
+<body>
+    <div class="DropDown">
+        <button class="btn sm" onclick="DropDown(this)"></button>
+        <div id="menu" class="lg">
+            @if (User.Identity.IsAuthenticated)
+            {
+                @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })
+                @Html.ActionLink("Info", "Info", "Home", new { area = "" }, new { @class = "nav-link" })
+                <a href="https://discord.gg/H5XyhS9">Discord</a>
+                @Html.ActionLink("Support", "Index", "Support", new { area = "" }, new { @class = "nav-link" })
+                <a href="https://www.mediafire.com/file/yq5ijcw02lx8elt/NTSDCES1.7z/file">Download</a>
+                <a>Welcome - @User.Identity.Name</a>
+                @Html.ActionLink("Log Out", "LogOut", "Account", new { area = "" }, new { @class = "nav-link" })
+            }
+            else
+            {
+                @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })
+                @Html.ActionLink("Info", "Info", "Home", new { area = "" }, new { @class = "nav-link" })
+                <a href="https://discord.gg/H5XyhS9">Discord</a>
+                @Html.ActionLink("Support", "Index", "Support", new { area = "" }, new { @class = "nav-link" })
+                <a href="https://www.mediafire.com/file/yq5ijcw02lx8elt/NTSDCES1.7z/file">Download</a>
+                @Html.ActionLink("Log In", "LogIn", "Account", new { area = "" }, new { @class = "nav-link" })
+                @Html.ActionLink("Register", "Register", "Account", new { area = "" }, new { @class = "nav-link" })
+            }
+        </div>
+    </div>
+    <div id="outer">
+        <div id="header">
+            <img src="~/images/title.png">
+        </div>
+        <div id="main">
+            <div id="topic">
+                <img src="~/images/sharingan_icon.png">
+                <p>FORUM</p>
+                <img src="~/images/sharingan_icon.png" style="float: right;">
+            </div>
+            <div id="main_content">
+                <div id="row1">
+                    <div id="col1">
+                        <p>
+                            Topics from developers
+                        </p>
+                    </div>
+                    <div id="col2">
+                        <p>
+                            Replies
+                        </p>
+                    </div>
+                    <div id="col3">
+                        <p>
+                            Views
+                        </p>
+                    </div>
+                    <div id="col3">
+                        <p>
+                            Date
+                        </p>
+                    </div>
+                </div>
+                <div id="row2">
+                    <div id="col1">
+                        <p>
+                            <a href="D:/WEB%20project/Forum_post_dev.html">Forum rules</a><br>
+                            by <a href="#" id="a_name">TheLMoD</a>
+                        </p>
+                    </div>
+                    <div id="col2">
+                        <p>
+                            0<br>
+                            reply
+                        </p>
+                    </div>
+                    <div id="col3">
+                        <p>
+                            3021<br>
+                            views
+                        </p>
+                    </div>
+                    <div id="col3">
+                        <p>
+                            April 12th 2018, 2:11 am
+                        </p>
+                    </div>
+                </div>
+                <div id="row1">
+                    <div id="col1">
+                        <p>
+                            Topics
+                        </p>
+                    </div>
+                    <div id="col2">
+                        <p>
+                            Replies
+                        </p>
+                    </div>
+                    <div id="col3">
+                        <p>
+                            Views
+                        </p>
+                    </div>
+                    <div id="col3">
+                        <p>
+                            Date
+                        </p>
+                    </div>
+                </div>
+                <div id="row2" style="height: 20px; border-style: none;">
+                    <div id="col1">
+                        <button>New post</button>
+                    </div>
+                    <div id="col2">
+                        <p>
+                            &nbsp;
+                        </p>
+                    </div>
+                    <div id="col3">
+                        <p>
+                            &nbsp;
+                        </p>
+                    </div>
+                    <div id="col3">
+                        <p>
+                            &nbsp;
+                        </p>
+                    </div>
+                </div>
+                <div id="row2">
+                    <div id="col1">
+                        <p>
+                            <a href="D:/WEB%20project/Forum_post1.html">Obito the Hokage</a><br>
+                            by <a href="#" id="a_name">Rocklee8gates</a>
+                        </p>
+                    </div>
+                    <div id="col2">
+                        <p>
+                            2<br>
+                            replies
+                        </p>
+                    </div>
+                    <div id="col3">
+                        <p>
+                            1772<br>
+                            views
+                        </p>
+                    </div>
+                    <div id="col3">
+                        <p>
+                            April 12th 2018, 2:11 am
+                        </p>
+                    </div>
+                </div>
+                <div id="row2">
+                    <div id="col1">
+                        <p>
+                            <a href="D:/WEB%20project/Forum_post2.html">Jiraiya Still Alive?</a><br>
+                            by <a href="#" id="a_name">Rocklee8gates</a>
+                        </p>
+                    </div>
+                    <div id="col2">
+                        <p>
+                            2<br>
+                            replies
+                        </p>
+                    </div>
+                    <div id="col3">
+                        <p>
+                            591<br>
+                            views
+                        </p>
+                    </div>
+                    <div id="col3">
+                        <p>
+                            October 21st 2016, 10:49 pm
+                        </p>
+                    </div>
+                </div>
+                <div id="row2">
+                    <div id="col1">
+                        <p>
+                            <a href="D:/WEB%20project/Forum_post3.html">i watch alot of anime anyone know what I can do</a><br>
+                            by <a href="#" id="a_name">Izaak</a>
+                        </p>
+                    </div>
+                    <div id="col2">
+                        <p>
+                            2<br>
+                            replies
+                        </p>
+                    </div>
+                    <div id="col3">
+                        <p>
+                            346<br>
+                            views
+                        </p>
+                    </div>
+                    <div id="col3">
+                        <p>
+                            April 12th 2018, 2:11 am
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="footer">
+            <p>
+                Copyright &copy Naruto: The Setting Dawn Community Edition Storm. All rights reserved.
+            </p>
+        </div>
+    </div>
+    <script>
+        function DropDown(element) {
+            element.nextElementSibling.classList.add("active")
+        }
+        window.onclick = function (event) {
+            let active = document.querySelector(".active")
+            if (active && !event.target.matches(".btn")) {
+                active.classList.remove("active")
+            }
+        }
+    </script>
+</body>
+</html>

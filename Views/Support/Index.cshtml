@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="main">
+    <div id="content">
+        <div id="topic">
+            <img src="~/images/sharingan_icon.png">
+            <p>REQUIRED FORM</p>
+            <img src="~/images/sharingan_icon.png" style="float: right;">
+        </div>
+        <div id="main_content">
+            @using (Html.BeginForm("Index", "Support", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+            {
+                if (User.Identity.IsAuthenticated)
+                {
+                    <form method="post">
+                        <fieldset>
+                            <legend align="center">Detail</legend>
+                            <label for="Username">Username:</label><br>
+                            <input type="text" name="Username" id="input" value="@User.Identity.Name" readonly><br>
+                            <label for="Email">Email:</label><br>
+                            <input type="text" name="Email" id="input"><br>
+                            <label for="Title">Title:</label><br>
+                            <input type="text" name="Title" id="input"><br>
+                            <label for="Discribe">Discribe:</label><br>
+                            <textarea name="Discribe"></textarea><br>
+                            <input type="file" name="imgfile"><br>
+                            <input type="submit" value="Submit" onclick="alert('Your require is submitted!')" formaction="/Support/Index" />
+                        </fieldset>
+                    </form>
+                }
+                else
+                {
+                    <form method="post">
+                        <fieldset>
+                            <legend align="center">Detail</legend>
+                            <label for="Username">Username:</label><br>
+                            <input type="text" name="Username" id="input" readonly><br>
+                            <label for="Email">Email:</label><br>
+                            <input type="text" name="Email" id="input"><br>
+                            <label for="Title">Title:</label><br>
+                            <input type="text" name="Title" id="input"><br>
+                            <label for="Discribe">Discribe:</label><br>
+                            <textarea name="Discribe"></textarea><br>
+                            <input type="file" name="imgfile"><br>
+                            <input type="submit" value="Submit" formaction="/Support/Index" />
+                        </fieldset>
+                    </form>
+                }
+            }
+        </div>
+    </div>
+</div>
