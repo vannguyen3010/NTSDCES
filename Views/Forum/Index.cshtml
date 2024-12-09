@@ -100,9 +100,6 @@
                         </p>
                     </div>
                 </div>
-                <div id="col1">
-                    <button style="margin-top: 17px; margin-left: 7px;">New post</button>
-                </div>
 
                 <div id="row2" style="height: 20px; border-style: none;">
                     <div id="col1">
@@ -127,11 +124,19 @@
                                     {
                                         @Html.Hidden("id", item.PostID)
                                         <button type="submit" style="background: none; border: none; color: blue; cursor: pointer; margin-left: -6px;">
-                                            @item.Title Test
+                                            @item.Title
                                         </button>
 
                                     }
                                     Name : <a href="#" id="a_name">@res.NameAcc</a>
+                                    @if (User.IsInRole("Developer"))
+                                    {
+                                        <a href="@Url.Action("DeleteForum", "Forum", new { id = item.PostID })">
+                                            <input type="submit" value="Delete" style=" width: 110px; margin-left: 4px" />
+                                        </a>
+                                    }
+
+
                                 </p>
                             </div>
                             <div id="col2">
@@ -151,6 +156,7 @@
                                     @item.PostDate
                                 </p>
                             </div>
+
                         </div>
                     }
 
