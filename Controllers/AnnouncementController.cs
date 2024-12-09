@@ -49,6 +49,7 @@ namespace NTSDCES.Controllers
             }
             return View(ForumPost.NamePost);
         }
+
         public string FileUpLoad(HttpPostedFileBase file)
         {
             if (file != null)

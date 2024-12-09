@@ -1,67 +1,108 @@
-﻿
+﻿@using NTSDCES.Models
+@model NTSDCES.Models.Forum
 @{
     ViewBag.Title = "Forum_post1";
     Layout = "~/Views/Shared/_Layout2.cshtml";
+    NTSDCESEntities Data = new NTSDCESEntities();
+    List<Forum> ListPostAnnouncement = Data.Fora.ToList();
+    List<Account> NameAccount = Data.Accounts.ToList();
 }
-
 <div id="main">
     <div id="topic">
         <img src="~/images/sharingan_icon.png">
-        <p>Obito the hokage</p>
+        <p>Post</p>
         <img src="~/images/sharingan_icon.png" style="float: right;">
     </div>
     <div id="main_content">
-        <div id="row">
-            <div id="col1">
-                <img src="~/images/template_avt.png">
-                <p>
-                    Name: <a href="#">Rocklee8gates</a><br>
-                    Role: Guest
-                </p>
-            </div>
-            <div id="col2">
-                <p>
-                    So it went from Hashirama, Tobirama, Hiruzen, Minato, Tsunade, so if Obito didn't turn bad and kakashi didn't be the 6th Hokage, wouldn't you think
-                </p>
-                <img src="~/images/obito_11.png" id="post-img"><br>
-                <button style="background-color: white; width: 100px; float: left;"><img src="~/images/like_icon.png"><p style="line-height: 22px">Like</p></button>
-                <button style="background-color: white; width: 100px; margin-left: 8px; float: left;"><img src="~/images/dislike_icon.png"><p style="line-height: 22px">Dislike</p></button>
-            </div>
-        </div>
-        <div id="row" style="border-style: none;">
-            <button>Write something</button>
-        </div>
-        <div id="row">
-            <div id="col1">
-                <img src="~/images/the creator.gif">
-                <p>
-                    Name: <a href="#">The Creator</a><br>
-                    Role: Guest
-                </p>
-            </div>
-            <div id="col2">
-                <p>
-                    There are many things to consider for that.
-                </p>
-                <button style="background-color: white; width: 100px; float: left;"><img src="~/images/like_icon.png"><p style="line-height: 22px">Like</p></button>
-                <button style="background-color: white; width: 100px; margin-left: 8px; float: left;"><img src="~/images/dislike_icon.png"><p style="line-height: 22px">Dislike</p></button>
-            </div>
-        </div>
-        <div id="row">
-            <div id="col1">
-                <img src="~/images/doctor mak.png">
-                <p>
-                    Name: <a href="#">Doctor Mak</a><br>
-                    Role: Guest
-                </p>
-            </div>
-            <div id="col2">
-                <p>
-                    Where the hell is this from? When did Obito wonder him being a kage?
-                </p>
-                <button style="background-color: white; width: 100px; float: left;"><img src="~/images/like_icon.png"><p style="line-height: 22px">Like</p></button>
-                <button style="background-color: white; width: 100px; margin-left: 8px; float: left;"><img src="~/images/dislike_icon.png"><p style="line-height: 22px">Dislike</p></button>
-            </div>
-        </div>
+        @using (Html.BeginForm("Forum_post1", "Forum", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                <form method="post">
+                    <fieldset>
+                        <legend align="center">New Post</legend>
+
+                        <label for="Username">Username:</label><br>
+                        <input type="text" name="Username" id="input" value="@User.Identity.Name" readonly><br>
+
+                        <label for="NumReps">NumReps:</label><br>
+                        <input type="text" name="NumReps" id="input" value="" ><br>
+
+                        <label for="NumViews">NumViews:</label><br>
+                        <input type="text" name="NumViews" id="input" value="" ><br>
+                        <br>
+                        <label for="Title">Title:</label><br>
+                        <input type="text" name="Title" id="input"/><br>
+
+                        <label for="PostDate">PostDate:</label><br>
+                        <input type = "datetime-local" name="PostDate" id="input" value=""><br>
+
+                        <input type="submit" value="Post" onclick="alert('Posted Successfully')" formaction="/Forum/CreateForum" />
+                    </fieldset>
+                </form>
+               
+            }
+        }
     </div>
 </div>
+@*<div id="main">
+        <div id="topic">
+            <img src="~/images/sharingan_icon.png">
+            <p>Obito the hokage</p>
+            <img src="~/images/sharingan_icon.png" style="float: right;">
+        </div>
+        <div id="main_content">
+            <div id="row">
+                <div id="col1">
+                    <img src="~/images/template_avt.png">
+                    <p>
+                        Name: <a href="#">Rocklee8gates</a><br>
+                        Role: Guest
+                    </p>
+                </div>
+                <div id="col2">
+                    <p>
+                        So it went from Hashirama, Tobirama, Hiruzen, Minato, Tsunade, so if Obito didn't turn bad and kakashi didn't be the 6th Hokage, wouldn't you think
+                    </p>
+                    <img src="~/images/obito_11.png" id="post-img"><br>
+                    <button style="background-color: white; width: 100px; float: left;"><img src="~/images/like_icon.png"><p style="line-height: 22px">Like</p></button>
+                    <button style="background-color: white; width: 100px; margin-left: 8px; float: left;"><img src="~/images/dislike_icon.png"><p style="line-height: 22px">Dislike</p></button>
+                </div>
+            </div>
+            <div id="row" style="border-style: none;">
+                <button>Write something</button>
+            </div>
+            <div id="row">
+                <div id="col1">
+                    <img src="~/images/the creator.gif">
+                    <p>
+                        Name: <a href="#">The Creator</a><br>
+                        Role: Guest
+                    </p>
+                </div>
+                <div id="col2">
+                    <p>
+                        There are many things to consider for that.
+                    </p>
+                    <button style="background-color: white; width: 100px; float: left;"><img src="~/images/like_icon.png"><p style="line-height: 22px">Like</p></button>
+                    <button style="background-color: white; width: 100px; margin-left: 8px; float: left;"><img src="~/images/dislike_icon.png"><p style="line-height: 22px">Dislike</p></button>
+                </div>
+            </div>
+            <div id="row">
+                <div id="col1">
+                    <img src="~/images/doctor mak.png">
+                    <p>
+                        Name: <a href="#">Doctor Mak</a><br>
+                        Role: Guest
+                    </p>
+                </div>
+                <div id="col2">
+                    <p>
+                        Where the hell is this from? When did Obito wonder him being a kage?
+                    </p>
+                    <button style="background-color: white; width: 100px; float: left;"><img src="~/images/like_icon.png"><p style="line-height: 22px">Like</p></button>
+                    <button style="background-color: white; width: 100px; margin-left: 8px; float: left;"><img src="~/images/dislike_icon.png"><p style="line-height: 22px">Dislike</p></button>
+                </div>
+            </div>
+        </div>
+    </div>*@
