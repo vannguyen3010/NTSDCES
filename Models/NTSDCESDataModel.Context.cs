@@ -27,10 +27,10 @@ namespace NTSDCES.Models
     
         public virtual DbSet<Account> Accounts { get; set; }
         public virtual DbSet<Character> Characters { get; set; }
+        public virtual DbSet<Forum> Fora { get; set; }
         public virtual DbSet<ForumPost> ForumPosts { get; set; }
         public virtual DbSet<ForumRep> ForumReps { get; set; }
         public virtual DbSet<Image> Images { get; set; }
         public virtual DbSet<SupportForm> SupportForms { get; set; }
-        public virtual DbSet<Forum> Fora { get; set; }
     }
 }

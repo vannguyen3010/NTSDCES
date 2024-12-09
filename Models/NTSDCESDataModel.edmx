@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Models.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="NTSDCESModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Account">
           <Key>
             <PropertyRef Name="AccountID" />
@@ -25,15 +25,13 @@
           <Property Name="sImage" Type="nvarchar" MaxLength="255" />
           <Property Name="fImage" Type="nvarchar" MaxLength="255" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'NTSDCES.dbo.Forum' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Forum">
           <Key>
             <PropertyRef Name="PostID" />
-            <PropertyRef Name="AccountID" />
           </Key>
           <Property Name="PostID" Type="int" Nullable="false" />
           <Property Name="NumReps" Type="int" />
+          <Property Name="Title" Type="nvarchar" MaxLength="255" />
           <Property Name="NumViews" Type="int" />
           <Property Name="PostDate" Type="datetime" />
           <Property Name="AccountID" Type="int" Nullable="false" />
@@ -80,7 +78,7 @@ warning 6002: The table/view 'NTSDCES.dbo.Forum' does not have a primary key def
           <Property Name="Images" Type="nvarchar" MaxLength="255" />
           <Property Name="AccountID" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Forum__AccountID__412EB0B6">
+        <Association Name="FK__Forum__AccountID__59FA5E80">
           <End Role="Account" Type="Self.Account" Multiplicity="1" />
           <End Role="Forum" Type="Self.Forum" Multiplicity="*" />
           <ReferentialConstraint>
@@ -89,18 +87,6 @@ warning 6002: The table/view 'NTSDCES.dbo.Forum' does not have a primary key def
             </Principal>
             <Dependent Role="Forum">
               <PropertyRef Name="AccountID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Forum__PostID__3D5E1FD2">
-          <End Role="ForumPost" Type="Self.ForumPost" Multiplicity="1" />
-          <End Role="Forum" Type="Self.Forum" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ForumPost">
-              <PropertyRef Name="PostID" />
-            </Principal>
-            <Dependent Role="Forum">
-              <PropertyRef Name="PostID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -164,28 +150,16 @@ warning 6002: The table/view 'NTSDCES.dbo.Forum' does not have a primary key def
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ModelsStoreContainer">
+        <EntityContainer Name="NTSDCESModelStoreContainer">
           <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Characters" EntityType="Self.Characters" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Forum" EntityType="Self.Forum" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ForumPost" EntityType="Self.ForumPost" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ForumReps" EntityType="Self.ForumReps" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Images" EntityType="Self.Images" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SupportForm" EntityType="Self.SupportForm" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Forum" EntityType="Self.Forum" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Forum].[PostID] AS [PostID], 
-    [Forum].[NumReps] AS [NumReps], 
-    [Forum].[NumViews] AS [NumViews], 
-    [Forum].[PostDate] AS [PostDate], 
-    [Forum].[AccountID] AS [AccountID]
-    FROM [dbo].[Forum] AS [Forum]</DefiningQuery>
-          </EntitySet>
-          <AssociationSet Name="FK__Forum__AccountID__412EB0B6" Association="Self.FK__Forum__AccountID__412EB0B6">
+          <AssociationSet Name="FK__Forum__AccountID__59FA5E80" Association="Self.FK__Forum__AccountID__59FA5E80">
             <End Role="Account" EntitySet="Account" />
-            <End Role="Forum" EntitySet="Forum" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Forum__PostID__3D5E1FD2" Association="Self.FK__Forum__PostID__3D5E1FD2">
-            <End Role="ForumPost" EntitySet="ForumPost" />
             <End Role="Forum" EntitySet="Forum" />
           </AssociationSet>
           <AssociationSet Name="FK__ForumPost__Accou__3B75D760" Association="Self.FK__ForumPost__Accou__3B75D760">
@@ -213,7 +187,7 @@ warning 6002: The table/view 'NTSDCES.dbo.Forum' does not have a primary key def
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="Models" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="NTSDCESModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Account">
           <Key>
             <PropertyRef Name="AccountID" />
@@ -224,7 +198,7 @@ warning 6002: The table/view 'NTSDCES.dbo.Forum' does not have a primary key def
           <Property Name="Avatar" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="CateAcc" Type="Int32" Nullable="false" />
           <Property Name="Passwords" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Fora" Relationship="Self.FK__Forum__AccountID__412EB0B6" FromRole="Account" ToRole="Forum" />
+          <NavigationProperty Name="Fora" Relationship="Self.FK__Forum__AccountID__59FA5E80" FromRole="Account" ToRole="Forum" />
           <NavigationProperty Name="ForumPosts" Relationship="Self.FK__ForumPost__Accou__3B75D760" FromRole="Account" ToRole="ForumPost" />
           <NavigationProperty Name="ForumReps" Relationship="Self.FK__ForumReps__Accou__44FF419A" FromRole="Account" ToRole="ForumReps" />
           <NavigationProperty Name="SupportForms" Relationship="Self.FK__SupportFo__Accou__4CA06362" FromRole="Account" ToRole="SupportForm" />
@@ -239,6 +213,18 @@ warning 6002: The table/view 'NTSDCES.dbo.Forum' does not have a primary key def
           <Property Name="fImage" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Images" Relationship="Self.FK__Images__Characte__49C3F6B7" FromRole="Characters" ToRole="Images" />
         </EntityType>
+        <EntityType Name="Forum">
+          <Key>
+            <PropertyRef Name="PostID" />
+          </Key>
+          <Property Name="PostID" Type="Int32" Nullable="false" />
+          <Property Name="NumReps" Type="Int32" />
+          <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="NumViews" Type="Int32" />
+          <Property Name="PostDate" Type="DateTime" Precision="3" />
+          <Property Name="AccountID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="Self.FK__Forum__AccountID__59FA5E80" FromRole="Forum" ToRole="Account" />
+        </EntityType>
         <EntityType Name="ForumPost">
           <Key>
             <PropertyRef Name="PostID" />
@@ -250,7 +236,6 @@ warning 6002: The table/view 'NTSDCES.dbo.Forum' does not have a primary key def
           <Property Name="CatePost" Type="Int32" Nullable="false" />
           <Property Name="AccountID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Account" Relationship="Self.FK__ForumPost__Accou__3B75D760" FromRole="ForumPost" ToRole="Account" />
-          <NavigationProperty Name="Fora" Relationship="Self.FK__Forum__PostID__3D5E1FD2" FromRole="ForumPost" ToRole="Forum" />
           <NavigationProperty Name="ForumReps" Relationship="Self.FK__ForumReps__PostI__440B1D61" FromRole="ForumPost" ToRole="ForumReps" />
         </EntityType>
         <EntityType Name="ForumRep">
@@ -288,20 +273,7 @@ warning 6002: The table/view 'NTSDCES.dbo.Forum' does not have a primary key def
           <Property Name="AccountID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Account" Relationship="Self.FK__SupportFo__Accou__4CA06362" FromRole="SupportForm" ToRole="Account" />
         </EntityType>
-        <EntityType Name="Forum">
-          <Key>
-            <PropertyRef Name="PostID" />
-            <PropertyRef Name="AccountID" />
-          </Key>
-          <Property Name="PostID" Type="Int32" Nullable="false" />
-          <Property Name="NumReps" Type="Int32" />
-          <Property Name="NumViews" Type="Int32" />
-          <Property Name="PostDate" Type="DateTime" Precision="3" />
-          <Property Name="AccountID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Account" Relationship="Self.FK__Forum__AccountID__412EB0B6" FromRole="Forum" ToRole="Account" />
-          <NavigationProperty Name="ForumPost" Relationship="Self.FK__Forum__PostID__3D5E1FD2" FromRole="Forum" ToRole="ForumPost" />
-        </EntityType>
-        <Association Name="FK__Forum__AccountID__412EB0B6">
+        <Association Name="FK__Forum__AccountID__59FA5E80">
           <End Role="Account" Type="Self.Account" Multiplicity="1" />
           <End Role="Forum" Type="Self.Forum" Multiplicity="*" />
           <ReferentialConstraint>
@@ -361,18 +333,6 @@ warning 6002: The table/view 'NTSDCES.dbo.Forum' does not have a primary key def
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Forum__PostID__3D5E1FD2">
-          <End Role="ForumPost" Type="Self.ForumPost" Multiplicity="1" />
-          <End Role="Forum" Type="Self.Forum" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ForumPost">
-              <PropertyRef Name="PostID" />
-            </Principal>
-            <Dependent Role="Forum">
-              <PropertyRef Name="PostID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__ForumReps__PostI__440B1D61">
           <End Role="ForumPost" Type="Self.ForumPost" Multiplicity="1" />
           <End Role="ForumReps" Type="Self.ForumRep" Multiplicity="*" />
@@ -388,12 +348,12 @@ warning 6002: The table/view 'NTSDCES.dbo.Forum' does not have a primary key def
         <EntityContainer Name="NTSDCESEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Accounts" EntityType="Self.Account" />
           <EntitySet Name="Characters" EntityType="Self.Character" />
+          <EntitySet Name="Fora" EntityType="Self.Forum" />
           <EntitySet Name="ForumPosts" EntityType="Self.ForumPost" />
           <EntitySet Name="ForumReps" EntityType="Self.ForumRep" />
           <EntitySet Name="Images" EntityType="Self.Image" />
           <EntitySet Name="SupportForms" EntityType="Self.SupportForm" />
-          <EntitySet Name="Fora" EntityType="Self.Forum" />
-          <AssociationSet Name="FK__Forum__AccountID__412EB0B6" Association="Self.FK__Forum__AccountID__412EB0B6">
+          <AssociationSet Name="FK__Forum__AccountID__59FA5E80" Association="Self.FK__Forum__AccountID__59FA5E80">
             <End Role="Account" EntitySet="Accounts" />
             <End Role="Forum" EntitySet="Fora" />
           </AssociationSet>
@@ -413,10 +373,6 @@ warning 6002: The table/view 'NTSDCES.dbo.Forum' does not have a primary key def
             <End Role="Characters" EntitySet="Characters" />
             <End Role="Images" EntitySet="Images" />
           </AssociationSet>
-          <AssociationSet Name="FK__Forum__PostID__3D5E1FD2" Association="Self.FK__Forum__PostID__3D5E1FD2">
-            <End Role="ForumPost" EntitySet="ForumPosts" />
-            <End Role="Forum" EntitySet="Fora" />
-          </AssociationSet>
           <AssociationSet Name="FK__ForumReps__PostI__440B1D61" Association="Self.FK__ForumReps__PostI__440B1D61">
             <End Role="ForumPost" EntitySet="ForumPosts" />
             <End Role="ForumReps" EntitySet="ForumReps" />
@@ -427,9 +383,9 @@ warning 6002: The table/view 'NTSDCES.dbo.Forum' does not have a primary key def
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ModelsStoreContainer" CdmEntityContainer="NTSDCESEntities">
+        <EntityContainerMapping StorageEntityContainer="NTSDCESModelStoreContainer" CdmEntityContainer="NTSDCESEntities">
           <EntitySetMapping Name="Accounts">
-            <EntityTypeMapping TypeName="Models.Account">
+            <EntityTypeMapping TypeName="NTSDCESModel.Account">
               <MappingFragment StoreEntitySet="Account">
                 <ScalarProperty Name="AccountID" ColumnName="AccountID" />
                 <ScalarProperty Name="NameAcc" ColumnName="NameAcc" />
@@ -441,7 +397,7 @@ warning 6002: The table/view 'NTSDCES.dbo.Forum' does not have a primary key def
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Characters">
-            <EntityTypeMapping TypeName="Models.Character">
+            <EntityTypeMapping TypeName="NTSDCESModel.Character">
               <MappingFragment StoreEntitySet="Characters">
                 <ScalarProperty Name="CharacterID" ColumnName="CharacterID" />
                 <ScalarProperty Name="NameChar" ColumnName="NameChar" />
@@ -450,8 +406,20 @@ warning 6002: The table/view 'NTSDCES.dbo.Forum' does not have a primary key def
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Fora">
+            <EntityTypeMapping TypeName="NTSDCESModel.Forum">
+              <MappingFragment StoreEntitySet="Forum">
+                <ScalarProperty Name="PostID" ColumnName="PostID" />
+                <ScalarProperty Name="NumReps" ColumnName="NumReps" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="NumViews" ColumnName="NumViews" />
+                <ScalarProperty Name="PostDate" ColumnName="PostDate" />
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ForumPosts">
-            <EntityTypeMapping TypeName="Models.ForumPost">
+            <EntityTypeMapping TypeName="NTSDCESModel.ForumPost">
               <MappingFragment StoreEntitySet="ForumPost">
                 <ScalarProperty Name="PostID" ColumnName="PostID" />
                 <ScalarProperty Name="NamePost" ColumnName="NamePost" />
@@ -463,7 +431,7 @@ warning 6002: The table/view 'NTSDCES.dbo.Forum' does not have a primary key def
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ForumReps">
-            <EntityTypeMapping TypeName="Models.ForumRep">
+            <EntityTypeMapping TypeName="NTSDCESModel.ForumRep">
               <MappingFragment StoreEntitySet="ForumReps">
                 <ScalarProperty Name="PostRepID" ColumnName="PostRepID" />
                 <ScalarProperty Name="Content" ColumnName="Content" />
@@ -474,7 +442,7 @@ warning 6002: The table/view 'NTSDCES.dbo.Forum' does not have a primary key def
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Images">
-            <EntityTypeMapping TypeName="Models.Image">
+            <EntityTypeMapping TypeName="NTSDCESModel.Image">
               <MappingFragment StoreEntitySet="Images">
                 <ScalarProperty Name="ImageID" ColumnName="ImageID" />
                 <ScalarProperty Name="Content" ColumnName="Content" />
@@ -484,7 +452,7 @@ warning 6002: The table/view 'NTSDCES.dbo.Forum' does not have a primary key def
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SupportForms">
-            <EntityTypeMapping TypeName="Models.SupportForm">
+            <EntityTypeMapping TypeName="NTSDCESModel.SupportForm">
               <MappingFragment StoreEntitySet="SupportForm">
                 <ScalarProperty Name="FormID" ColumnName="FormID" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
@@ -492,17 +460,6 @@ warning 6002: The table/view 'NTSDCES.dbo.Forum' does not have a primary key def
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Discribe" ColumnName="Discribe" />
                 <ScalarProperty Name="Images" ColumnName="Images" />
-                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Fora">
-            <EntityTypeMapping TypeName="Models.Forum">
-              <MappingFragment StoreEntitySet="Forum">
-                <ScalarProperty Name="PostID" ColumnName="PostID" />
-                <ScalarProperty Name="NumReps" ColumnName="NumReps" />
-                <ScalarProperty Name="NumViews" ColumnName="NumViews" />
-                <ScalarProperty Name="PostDate" ColumnName="PostDate" />
                 <ScalarProperty Name="AccountID" ColumnName="AccountID" />
               </MappingFragment>
             </EntityTypeMapping>

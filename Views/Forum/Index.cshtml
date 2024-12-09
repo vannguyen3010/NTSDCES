@@ -1,6 +1,10 @@
-﻿
+﻿@using NTSDCES.Models
+@model IEnumerable<Forum>
 @{
+    ViewBag.Title = "Index";
     Layout = null;
+    NTSDCESEntities Data = new NTSDCESEntities();
+    List<Account> NameAccount = Data.Accounts.ToList();
 }
 
 <!DOCTYPE html>
@@ -96,148 +100,62 @@
                         </p>
                     </div>
                 </div>
-                <div id="row2">
-                    <div id="col1">
-                        <p>
-                            <a href="D:/WEB%20project/Forum_post_dev.html">Forum rules</a><br>
-                            by <a href="#" id="a_name">TheLMoD</a>
-                        </p>
-                    </div>
-                    <div id="col2">
-                        <p>
-                            0<br>
-                            reply
-                        </p>
-                    </div>
-                    <div id="col3">
-                        <p>
-                            3021<br>
-                            views
-                        </p>
-                    </div>
-                    <div id="col3">
-                        <p>
-                            April 12th 2018, 2:11 am
-                        </p>
-                    </div>
+                <div id="col1">
+                    <button style="margin-top: 17px; margin-left: 7px;">New post</button>
                 </div>
-                <div id="row1">
-                    <div id="col1">
-                        <p>
-                            Topics
-                        </p>
-                    </div>
-                    <div id="col2">
-                        <p>
-                            Replies
-                        </p>
-                    </div>
-                    <div id="col3">
-                        <p>
-                            Views
-                        </p>
-                    </div>
-                    <div id="col3">
-                        <p>
-                            Date
-                        </p>
-                    </div>
-                </div>
+
                 <div id="row2" style="height: 20px; border-style: none;">
                     <div id="col1">
-                        <button>New post</button>
+                        @if (User.IsInRole("Developer"))
+                        {
+                            <a href="@Url.Action("Forum_post1", "Forum", new { area = "" })">
+                                <input type="submit" value="New Post" style="margin-top: 4px; margin-left: 4px" />
+                            </a>
+                        }
                     </div>
-                    <div id="col2">
-                        <p>
-                            &nbsp;
-                        </p>
-                    </div>
-                    <div id="col3">
-                        <p>
-                            &nbsp;
-                        </p>
-                    </div>
-                    <div id="col3">
-                        <p>
-                            &nbsp;
-                        </p>
-                    </div>
+
                 </div>
-                <div id="row2">
-                    <div id="col1">
-                        <p>
-                            <a href="D:/WEB%20project/Forum_post1.html">Obito the Hokage</a><br>
-                            by <a href="#" id="a_name">Rocklee8gates</a>
-                        </p>
-                    </div>
-                    <div id="col2">
-                        <p>
-                            2<br>
-                            replies
-                        </p>
-                    </div>
-                    <div id="col3">
-                        <p>
-                            1772<br>
-                            views
-                        </p>
-                    </div>
-                    <div id="col3">
-                        <p>
-                            April 12th 2018, 2:11 am
-                        </p>
-                    </div>
-                </div>
-                <div id="row2">
-                    <div id="col1">
-                        <p>
-                            <a href="D:/WEB%20project/Forum_post2.html">Jiraiya Still Alive?</a><br>
-                            by <a href="#" id="a_name">Rocklee8gates</a>
-                        </p>
-                    </div>
-                    <div id="col2">
-                        <p>
-                            2<br>
-                            replies
-                        </p>
-                    </div>
-                    <div id="col3">
-                        <p>
-                            591<br>
-                            views
-                        </p>
-                    </div>
-                    <div id="col3">
-                        <p>
-                            October 21st 2016, 10:49 pm
-                        </p>
-                    </div>
-                </div>
-                <div id="row2">
-                    <div id="col1">
-                        <p>
-                            <a href="D:/WEB%20project/Forum_post3.html">i watch alot of anime anyone know what I can do</a><br>
-                            by <a href="#" id="a_name">Izaak</a>
-                        </p>
-                    </div>
-                    <div id="col2">
-                        <p>
-                            2<br>
-                            replies
-                        </p>
-                    </div>
-                    <div id="col3">
-                        <p>
-                            346<br>
-                            views
-                        </p>
-                    </div>
-                    <div id="col3">
-                        <p>
-                            April 12th 2018, 2:11 am
-                        </p>
-                    </div>
-                </div>
+                @foreach (var item in Model)
+                {
+                    foreach (var res in NameAccount.Where(x => x.AccountID == item.AccountID))
+                    {
+                        <div id="row2" style="height: 60px;">
+                            <div id="col1">
+                                <p>
+                                    @using (Html.BeginForm("IncrementRepliesCount", "Forum", FormMethod.Post))
+                                    {
+                                        @Html.Hidden("id", item.PostID)
+                                        <button type="submit" style="background: none; border: none; color: blue; cursor: pointer; margin-left: -6px;">
+                                            @item.Title Test
+                                        </button>
+
+                                    }
+                                    Name : <a href="#" id="a_name">@res.NameAcc</a>
+                                </p>
+                            </div>
+                            <div id="col2">
+                                <p>
+                                    @item.NumReps<br>
+                                    replies
+                                </p>
+                            </div>
+                            <div id="col3">
+                                <p>
+                                    @item.NumViews<br>
+                                    views
+                                </p>
+                            </div>
+                            <div id="col3">
+                                <p>
+                                    @item.PostDate
+                                </p>
+                            </div>
+                        </div>
+                    }
+
+                }
+
+
             </div>
         </div>
         <div id="footer">

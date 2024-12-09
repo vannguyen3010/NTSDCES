@@ -16,11 +16,11 @@ namespace NTSDCES.Models
     {
         public int PostID { get; set; }
         public Nullable<int> NumReps { get; set; }
+        public string Title { get; set; }
         public Nullable<int> NumViews { get; set; }
         public Nullable<System.DateTime> PostDate { get; set; }
         public int AccountID { get; set; }
     
         public virtual Account Account { get; set; }
-        public virtual ForumPost ForumPost { get; set; }
     }
 }
