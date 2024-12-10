@@ -45,6 +45,97 @@
         }
     </div>
 </div>
+
+<style>
+    /* Toàn bộ form */
+    form {
+        width: 400px;
+        margin: 20px auto; /* Căn giữa form */
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        background-color: #f9f9f9;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        font-family: Arial, sans-serif;
+    }
+
+    /* Tiêu đề */
+    legend {
+        font-size: 20px;
+        font-weight: bold;
+        color: #333;
+        padding: 5px 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #e3e3e3;
+    }
+
+    /* Label */
+    label {
+        font-weight: bold;
+        color: #555;
+        margin-top: 10px;
+        display: block;
+    }
+
+    /* Input */
+    input[type="text"],
+    input[type="datetime-local"] {
+        width: 100%;
+        padding: 8px;
+        /*margin: 5px 0 15px;*/
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-sizing: border-box;
+        font-size: 14px;
+    }
+
+    /* Input chỉ đọc */
+    input[readonly] {
+        background-color: #f0f0f0;
+        cursor: not-allowed;
+    }
+
+    /* Nút submit */
+    input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #fff;
+        background-color: #4CAF50;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        /* Hiệu ứng hover cho nút */
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+    /* Căn giữa và khoảng cách giữa các phần tử */
+    fieldset {
+        border: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    #input {
+        /*display: block;*/
+        width: calc(100% - 10px); /* Tăng khả năng tương thích */
+    }
+
+    /* Hiệu ứng hover cho input */
+    input[type="text"]:focus,
+    input[type="datetime-local"]:focus {
+        border-color: #4CAF50;
+        outline: none;
+        box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+    }
+
+</style>
 @*<div id="main">
         <div id="topic">
             <img src="~/images/sharingan_icon.png">
