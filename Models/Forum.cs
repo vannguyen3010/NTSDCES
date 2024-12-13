@@ -20,6 +20,8 @@ namespace NTSDCES.Models
         public Nullable<int> NumViews { get; set; }
         public Nullable<System.DateTime> PostDate { get; set; }
         public int AccountID { get; set; }
+        public string Description { get; set; }
+        public string Images { get; set; }
     
         public virtual Account Account { get; set; }
     }

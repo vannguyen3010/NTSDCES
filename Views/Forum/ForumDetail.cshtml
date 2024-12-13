@@ -1,0 +1,76 @@
+﻿@using NTSDCES.Models
+@model NTSDCES.Models.Forum
+@{
+    ViewBag.Title = "ForumDetail";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<div id="main">
+    <div id="topic">
+        <img src="~/images/sharingan_icon.png">
+        <p>Obito the hokage</p>
+        <img src="~/images/sharingan_icon.png" style="float: right;">
+    </div>
+    <div id="main_content">
+        <div id="row">
+            <div id="col1">
+                <img src="~/images/template_avt.png">
+                <p>
+
+                    Name: <a href="#">@Model.Account.NameAcc</a><br>
+                    Role:@Model.Account.Roles
+                </p>
+            </div>
+            <div id="col2">
+                <p>
+                    @Model.Title
+                </p>
+                <p>
+                    @Model.PostDate
+                </p>
+                <p>
+                    @Model.Description
+                </p>
+                <img src="~/images/@Model.Images" id="post-img"><br>
+                <button style="background-color: white; width: 100px; float: left; margin-top: 15px;"><img src="~/images/like_icon.png"><p style="line-height: 22px">Like</p></button>
+                <button style="background-color: white; width: 100px; margin-left: 8px; float: left; margin-top: 15px;"><img src="~/images/dislike_icon.png"><p style="line-height: 22px">Dislike</p></button>
+            </div>
+        </div>
+        <div id="row" style="border-style: none;">
+            <button>Write something</button>
+        </div>
+        <div id="row">
+            <div id="col1">
+                <img src="~/images/the creator.gif">
+                <p>
+                    Name: <a href="#">The Creator</a><br>
+                    Role: Guest
+                </p>
+            </div>
+            <div id="col2">
+                <p>
+                    There are many things to consider for that.
+                </p>
+                <button style="background-color: white; width: 100px; float: left;"><img src="~/images/like_icon.png"><p style="line-height: 22px">Like</p></button>
+                <button style="background-color: white; width: 100px; margin-left: 8px; float: left;"><img src="~/images/dislike_icon.png"><p style="line-height: 22px">Dislike</p></button>
+            </div>
+        </div>
+        <div id="row">
+            <div id="col1">
+                <img src="~/images/doctor mak.png">
+                <p>
+                    Name: <a href="#">Doctor Mak</a><br>
+                    Role: Guest
+                </p>
+            </div>
+            <div id="col2">
+                <p>
+                    Where the hell is this from? When did Obito wonder him being a kage?
+                </p>
+                <button style="background-color: white; width: 100px; float: left; margin-top: 15px;"><img src="~/images/like_icon.png"><p style="line-height: 22px">Like</p></button>
+                <button style="background-color: white; width: 100px; margin-left: 8px; float: left; margin-top: 15px;"><img src="~/images/dislike_icon.png"><p style="line-height: 22px">Dislike</p></button>
+            </div>
+        </div>
+    </div>
+</div>
+
