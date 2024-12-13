@@ -1,54 +1,38 @@
 ﻿@using NTSDCES.Models
 @model NTSDCES.Models.Forum
 @{
-    ViewBag.Title = "Forum_post1";
+    ViewBag.Title = "ForumEdit";
     Layout = "~/Views/Shared/_Layout2.cshtml";
-    NTSDCESEntities Data = new NTSDCESEntities();
-    List<Forum> ListPostAnnouncement = Data.Fora.ToList();
-    List<Account> NameAccount = Data.Accounts.ToList();
 }
-<div id="main">
-    <div id="topic">
-        <img src="~/images/sharingan_icon.png">
-        <p>Post</p>
-        <img src="~/images/sharingan_icon.png" style="float: right;">
-    </div>
-    <div id="main_content">
-        @using (Html.BeginForm("Forum_post1", "Forum", FormMethod.Post, new { @enctype = "multipart/form-data" }))
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                <form method="post">
-                    <fieldset>
-                        <legend align="center">New Post</legend>
 
-                        <label for="Username">Username:</label><br>
-                        <input type="text" name="Username" id="input" value="@User.Identity.Name" readonly><br>
+<form method="post" enctype="multipart/form-data" action="@Url.Action("EditForumPost", "Forum", new { id = Model.PostID })">
+    <fieldset>
+        <legend align="center">ForumEdit</legend>
 
-                        <label for="NumReps">NumReps:</label><br>
-                        <input type="text" name="NumReps" id="input" value=""><br>
+        <label for="Username">Username:</label><br>
+        <input type="text" name="Username" id="input" value="@User.Identity.Name" readonly><br>
 
-                        <label for="NumViews">NumViews:</label><br>
-                        <input type="text" name="NumViews" id="input" value=""><br>
-                        <br>
-                        <label for="Title">Title:</label><br>
-                        <input type="text" name="Title" id="input" /><br>
+        <label for="NumReps">NumReps:</label><br>
+        <input type="text" name="NumReps" id="input" value="@Model.NumReps"><br>
 
-                        <label for="PostDate">PostDate:</label><br>
-                        <input type="datetime-local" name="PostDate" id="input" value=""><br>
+        <label for="NumViews">NumViews:</label><br>
+        <input type="text" name="NumViews" id="input" value="@Model.NumViews"><br>
+        <br>
+        <label for="Title">Title:</label><br>
+        <input type="text" name="Title" id="input" value="@Model.Title" /><br>
 
-                        <label for="Description">Description:</label><br>
-                        <input type="text" name="Description" id="input" /><br>
+        <label for="PostDate">PostDate:</label><br>
+        <input type="datetime-local" name="PostDate" id="input" value="@Model.PostDate"><br>
 
-                        <input type="file" name="imgfile"><br>
+        <label for="Description">Description:</label><br>
+        <textarea type="text" name="Description" id="input">@Model.Description</textarea><br>
 
-                        <input type="submit" value="Post" onclick="alert('Posted Successfully')" formaction="/Forum/CreateForum" />
-                    </fieldset>
-                </form>
-            }
-        }
-    </div>
-</div>
+        <input type="file" name="imgfile" /><br>
+
+        <input type="submit" value="Post" />
+    </fieldset>
+</form>
+
 
 <style>
     /* Toàn bộ form */

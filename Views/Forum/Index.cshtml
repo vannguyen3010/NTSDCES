@@ -39,6 +39,8 @@
                 border-style: none;
             }
     </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -103,12 +105,13 @@
 
                 <div id="row2" style="height: 20px; border-style: none;">
                     <div id="col1">
-                        @if (User.IsInRole("Developer"))
+                        @if (User.Identity.IsAuthenticated)
                         {
                             <a href="@Url.Action("Forum_post1", "Forum", new { area = "" })">
                                 <input type="submit" value="New Post" style="margin-top: 4px; margin-left: 4px" />
                             </a>
                         }
+
                     </div>
 
                 </div>
@@ -116,27 +119,37 @@
                 {
                     foreach (var res in NameAccount.Where(x => x.AccountID == item.AccountID))
                     {
-                        <div id="row2" style="height: 60px;">
+                        <div id="row2" style="height: 98px;">
                             <div id="col1">
 
-                                <p>
-                                    @using (Html.BeginForm("IncrementRepliesCount", "Forum", FormMethod.Post))
-                                    {
-                                        @Html.Hidden("id", item.PostID)
-                                        <button type="submit" style="background: none; border: none; color: blue; cursor: pointer; margin-left: -6px;">
-                                            @item.Title
-                                        </button>
+                                <p style="display: grid;">
+                                    <a href="@Url.Action("ForumDetail", "Forum", new { id = item.PostID })" style="background: none; border: none; color: blue; cursor: pointer;">
+                                        @item.Title
+                                    </a>
 
-                                    }
-                                    Name : <a href="#" id="a_name">@res.NameAcc</a>
-                                    @if (User.IsInRole("Developer"))
-                                    {
-                                        <a href="@Url.Action("DeleteForum", "Forum", new { id = item.PostID })">
-                                            <input type="submit" value="Delete" style=" width: 110px; margin-left: 4px" />
-                                        </a>
-                                    }
+                                    <a href="#" id="a_name" style="color:#fff">  Name :@res.NameAcc</a>
+                                    <div style="display: flex">
+                                        @using (Html.BeginForm("IncrementRepliesCount", "Forum", FormMethod.Post))
+                                        {
+                                            @Html.Hidden("id", item.PostID)
+                                            <button type="submit"><img src="~/images/like_icon.png"></button>
+                                        }
 
+                                        @if (User.IsInRole("Developer"))
+                                        {
+                                            <a href="@Url.Action("ForumEdit", "Forum", new { id = item.PostID })" style="text-decoration: none;">
+                                                <button type="submit" style="margin-left: 4px; background: #76b66d; color: #fff; padding: 7px; display: flex; align-items: center; justify-content: center; border-radius: 40%;">
+                                                    <i class="fa-solid fa-pen-to-square" style="margin-right: 5px;"></i>
+                                                </button>
+                                            </a>
+                                            <a href="@Url.Action("DeleteForum", "Forum", new { id = item.PostID })" style="text-decoration: none;">
+                                                <button type="submit" style="margin-left: 4px; background: red; color: #fff; padding: 7px; display: flex; align-items: center; justify-content: center; border-radius: 40%;">
+                                                    <i class="fas fa-trash" style="margin-right: 5px;"></i>
+                                                </button>
+                                            </a>
 
+                                        }
+                                    </div>
                                 </p>
                             </div>
                             <div id="col2">

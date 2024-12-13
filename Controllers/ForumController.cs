@@ -1,10 +1,12 @@
 ﻿using NTSDCES.Models;
+using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
-namespace NTSDCES.Controllers
+namespace NTSDCES.Controllerss
 {
     public class ForumController : Controller
     {
@@ -21,7 +23,27 @@ namespace NTSDCES.Controllers
             return View();
         }
 
-        //Action xử lý khi click vào Title, tăng RepliesCount
+        public ActionResult ForumEdit(int id)
+        {
+            Forum ForumPost = db.Fora.FirstOrDefault(x => x.PostID == id);
+            return View(ForumPost);
+        }
+
+        public ActionResult ForumDetail(int id)
+        {
+            //var forum = db.Fora.FirstOrDefault(x => x.PostID == id);
+            var forum = db.Fora.Include(f => f.Account).FirstOrDefault(x => x.PostID == id);
+
+            if (forum == null)
+            {
+                return HttpNotFound(); // Xử lý khi không tìm thấy Forum với ID
+            }
+            return View(forum);
+
+        }
+        
+
+        //Action xử lý khi click vào Title, tăng Replies
         [HttpPost]
         public ActionResult IncrementRepliesCount(int id)
         {
@@ -32,7 +54,7 @@ namespace NTSDCES.Controllers
                 {
                     // Tăng giá trị NumReps
                     forum.NumReps = (forum.NumReps ?? 0) + 1;
-                    db.SaveChanges(); // lưu vào database
+                    db.SaveChanges(); //Sao đó lưu dô database
                 }
             }
             return RedirectToAction("Index");
@@ -40,7 +62,7 @@ namespace NTSDCES.Controllers
 
         
         [HttpPost]
-        public ActionResult CreateForum([Bind(Include = "PostID,NumReps,Title,NumViews,PostDate,AccountID")] Forum Form, string Username)
+        public ActionResult CreateForum([Bind(Include = "PostID,NumReps,Title,NumViews,PostDate, AccountID, Description,Images")] Forum Form, HttpPostedFileBase imgfile, string Username)
         {
             if (ModelState.IsValid)
             {
@@ -52,25 +74,75 @@ namespace NTSDCES.Controllers
                     Title = Form.Title,
                     NumViews = Form.NumViews,
                     PostDate = Form.PostDate,
-                    AccountID = db.Accounts.Where(a => a.NameAcc == Username).Select(x => x.AccountID).FirstOrDefault()
+                    AccountID = db.Accounts.Where(a => a.NameAcc == Username).Select(x => x.AccountID).FirstOrDefault(),
+                    Description = Form.Description,
+                    Images = FileUpLoad(imgfile)
                 };
 
-                db.Fora.Add(forum);  // Thêm ForumPost vào bảng ForumPosts
+                db.Fora.Add(forum);  // Thêm Data vào bảng Forum
                 db.SaveChanges();  // Lưu thay đổi vào cơ sở dữ liệu
                 return RedirectToAction("Index");  // Chuyển hướng về trang danh sách Forum
             }
             return View(Form.Title);
         }
 
-        public ActionResult DeleteForum(int id)
+        public string FileUpLoad(HttpPostedFileBase file)
+        {
+            if (file != null)
+            {
+                string path = Server.MapPath("~/images/");
+                string filename = Path.GetFileName(file.FileName);
+                string fullPath = Path.Combine(path, filename);
+                file.SaveAs(fullPath);
+                return filename;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public ActionResult DeleteForum(int id) //phần này phần delete ko có j đâu
         {
             Forum ForumPost = db.Fora.FirstOrDefault(x => x.PostID == id);
-            db.Fora.Remove(ForumPost);
+            db.Fora.Remove(ForumPost);   
             db.SaveChanges();
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public ActionResult EditForumPost(int id, [Bind(Include = "PostID, Title, NumViews, PostDate, Description, Images")] Forum forum, HttpPostedFileBase imgfile)
+        {
+            if (ModelState.IsValid)
+            {
+                // Lấy bài viết cần chỉnh sửa
+                var existingForum = db.Fora.FirstOrDefault(x => x.PostID == id);
+                if (existingForum == null)
+                {
+                    return HttpNotFound(); // Nếu không tìm thấy bài viết, trả về lỗi 404
+                }
 
+                // Cập nhật thông tin từ form vào bài viết hiện tại
+                existingForum.Title = forum.Title;
+                existingForum.NumViews = forum.NumViews;
+                existingForum.PostDate = forum.PostDate;
+                existingForum.Description = forum.Description;
+
+                // Kiểm tra nếu người dùng chọn ảnh mới
+                if (imgfile != null)
+                {
+                    existingForum.Images = FileUpLoad(imgfile); // Lưu hình ảnh mới
+                }
+
+                // Lưu thay đổi vào cơ sở dữ liệu
+                db.SaveChanges();
+
+                return RedirectToAction("ForumDetail", new { id = existingForum.PostID }); // Chuyển hướng đến trang chi tiết bài viết
+            }
+
+            return View(forum); // Nếu dữ liệu không hợp lệ, hiển thị lại form chỉnh sửa
+        }
 
     }
 }
