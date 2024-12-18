@@ -371,6 +371,7 @@
     <Content Include="Views\Forum\Forum_post1.cshtml" />
     <Content Include="Views\Forum\ForumDetail.cshtml" />
     <Content Include="Views\Forum\ForumEdit.cshtml" />
+    <Content Include="Views\Forum\UpdateStatus.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

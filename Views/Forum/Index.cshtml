@@ -38,6 +38,13 @@
                 background-color: rgba(0, 0, 0, 0);
                 border-style: none;
             }
+
+        .item_postition {
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
     </style>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
@@ -81,7 +88,7 @@
             </div>
             <div id="main_content">
                 <div id="row1">
-                    <div id="col1">
+                    <div id="col1" style="width: 350px!important">
                         <p>
                             Topics from developers
                         </p>
@@ -101,10 +108,20 @@
                             Date
                         </p>
                     </div>
+                    @if (User.IsInRole("Developer"))
+                    {
+                        <div id="col3">
+                            <p>
+                                Options
+                            </p>
+                        </div>
+
+                    }
+
                 </div>
 
-                <div id="row2" style="height: 20px; border-style: none;">
-                    <div id="col1">
+                <div id="row2" style="height: 20px; border-style: none; display: flex; justify-content: space-between;">
+                    <div id="">
                         @if (User.Identity.IsAuthenticated)
                         {
                             <a href="@Url.Action("Forum_post1", "Forum", new { area = "" })">
@@ -114,27 +131,70 @@
 
                     </div>
 
+                    <div id="">
+                        @if (User.IsInRole("Developer"))
+                        {
+                            <a href="@Url.Action("UpdateStatus", "Forum", new { area = "" })">
+                                <input type="submit" value="Browse" style="margin-top: 4px; margin-left: 4px" />
+                            </a>
+                        }
+
+                    </div>
+
                 </div>
                 @foreach (var item in Model)
                 {
-                    foreach (var res in NameAccount.Where(x => x.AccountID == item.AccountID))
+                    if (item.Status == true)
                     {
-                        <div id="row2" style="height: 98px;">
-                            <div id="col1">
 
-                                <p style="display: grid;">
-                                    <a href="@Url.Action("ForumDetail", "Forum", new { id = item.PostID })" style="background: none; border: none; color: blue; cursor: pointer;">
-                                        @item.Title
-                                    </a>
+                        foreach (var res in NameAccount.Where(x => x.AccountID == item.AccountID))
+                        {
+                            <div id="row2" style="height: 98px;">
+                                <div id="col1" style="width: 350px!important">
 
-                                    <a href="#" id="a_name" style="color:#fff">  Name :@res.NameAcc</a>
-                                    <div style="display: flex">
-                                        @using (Html.BeginForm("IncrementRepliesCount", "Forum", FormMethod.Post))
-                                        {
-                                            @Html.Hidden("id", item.PostID)
-                                            <button type="submit"><img src="~/images/like_icon.png"></button>
-                                        }
+                                    <p style="display: grid;">
+                                        <a href="@Url.Action("ForumDetail", "Forum", new { id = item.PostID })" style="background: none; border: none; color: blue; cursor: pointer;">
+                                            @item.Title
+                                        </a>
 
+                                        <a href="#" id="a_name" style="color:#fff">  Name :@res.NameAcc</a>
+                                        <div style="display: flex">
+                                            @using (Html.BeginForm("IncrementRepliesCount", "Forum", FormMethod.Post))
+                                            {
+                                                @Html.Hidden("id", item.PostID)
+                                                <button type="submit"><img src="~/images/like_icon.png"></button>
+                                            }
+
+                                            @using (Html.BeginForm("DislikeRepliesCount", "Forum", FormMethod.Post))
+                                            {
+                                                @Html.Hidden("id", item.PostID)
+                                                <button type="submit"><img src="~/images/dislike_icon.png"></button>
+                                            }
+
+
+                                        </div>
+                                    </p>
+                                </div>
+                                <div id="col2">
+                                    <p class="item_postition">
+                                        @item.NumReps<br>
+                                        replies
+                                    </p>
+                                </div>
+                                <div id="col3">
+                                    <p class="item_postition">
+                                        @item.NumViews<br>
+                                        views
+                                    </p>
+                                </div>
+                                <div id="col3">
+                                    <p class="item_postition">
+                                        @item.PostDate
+                                    </p>
+                                </div>
+
+                                <div id="col3">
+                                    <div class="item_postition">
                                         @if (User.IsInRole("Developer"))
                                         {
                                             <a href="@Url.Action("ForumEdit", "Forum", new { id = item.PostID })" style="text-decoration: none;">
@@ -150,27 +210,11 @@
 
                                         }
                                     </div>
-                                </p>
-                            </div>
-                            <div id="col2">
-                                <p>
-                                    @item.NumReps<br>
-                                    replies
-                                </p>
-                            </div>
-                            <div id="col3">
-                                <p>
-                                    @item.NumViews<br>
-                                    views
-                                </p>
-                            </div>
-                            <div id="col3">
-                                <p>
-                                    @item.PostDate
-                                </p>
-                            </div>
 
-                        </div>
+                                </div>
+
+                            </div>
+                        }
                     }
 
                 }

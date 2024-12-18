@@ -22,6 +22,7 @@ namespace NTSDCES.Models
         public int AccountID { get; set; }
         public string Description { get; set; }
         public string Images { get; set; }
+        public Nullable<bool> Status { get; set; }
     
         public virtual Account Account { get; set; }
     }
