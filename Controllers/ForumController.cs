@@ -106,6 +106,7 @@ namespace NTSDCES.Controllerss
             return RedirectToAction("Index");
         }
 
+
         [HttpPost]
         public ActionResult CreateForum([Bind(Include = "PostID,NumReps,Title,NumViews,PostDate, AccountID, Description,Images")] Forum Form, HttpPostedFileBase imgfile, string Username)
         {
